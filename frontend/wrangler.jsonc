@@ -1,0 +1,9 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "cf-ai-code-reviewer-ui",
+  "pages_build_output_dir": "./public",
+  "compatibility_date": "2025-10-01",
+
+  // Pages Function forwards /api/* to the backend Worker (same origin, no CORS)
+  "services": [{ "binding": "API", "service": "cf-ai-code-reviewer" }]
+}

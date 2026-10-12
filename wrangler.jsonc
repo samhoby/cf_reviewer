@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cf-ai-code-reviewer",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-10-01",
+  "observability": { "enabled": true },
+
+  // Workers AI (Llama 3.3)
+  "ai": { "binding": "AI" },
+
+  // One Durable Object per review session
+  "durable_objects": {
+    "bindings": [{ "name": "REVIEW_SESSION", "class_name": "ReviewSession" }],
+  },
+
+  // Multi-step review pipeline
+  "workflows": [
+    {
+      "name": "code-review-workflow",
+      "binding": "REVIEW_WORKFLOW",
+      "class_name": "ReviewWorkflow",
+    },
+  ],
+
+  // Enable SQLite storage for the DO
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ReviewSession"] }],
+
+  "assets": {
+    "directory": "./frontend/public",
+  },
+}

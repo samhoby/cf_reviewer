@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>AI Code Reviewer</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">&lt;/&gt;</span> AI Code Reviewer</div>
+    <div class="session">
+      <span class="muted">Session <code id="sessionLabel">…</code></span>
+      <button id="newSessionBtn" class="ghost" type="button">New session</button>
+    </div>
+  </header>
+
+  <main class="split">
+    <!-- Left: code input -->
+    <section class="pane">
+      <div class="pane-head">
+        <h2>Code</h2>
+      </div>
+      <textarea id="code" class="code-input" spellcheck="false" autocomplete="off"
+        placeholder="Paste your code here…"></textarea>
+      <div class="pane-foot">
+        <span id="charCount" class="muted">0 / 15,000</span>
+        <button id="reviewBtn" type="button">Review code <kbd>Ctrl ↵</kbd></button>
+      </div>
+    </section>
+
+    <!-- Right: review + chat -->
+    <section class="pane">
+      <div class="pane-head">
+        <h2>Review</h2>
+        <span id="status" class="badge" hidden></span>
+      </div>
+      <div id="output" class="output" aria-live="polite">
+        <div id="report">
+          <div class="empty">
+            <p>Paste some code and hit <strong>Review code</strong>.</p>
+            <p class="muted">It runs a security check, then a logic &amp; performance check, then writes a combined
+              report.</p>
+          </div>
+        </div>
+        <div id="messages"></div>
+      </div>
+      <form id="chatForm" class="chat">
+        <textarea id="chatInput" rows="1" placeholder="Ask a follow-up question…" maxlength="8000"></textarea>
+        <button id="sendBtn" type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="/markdown.js"></script>
+  <script src="/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+# Dependency directories
+node_modules/
+
+# Local Wrangler state, SQLite databases, and temp builds
+.wrangler/
+
+# Local environment secrets and OS files
+.dev.vars
+.env
+.DS_Store
+Thumbs.db
