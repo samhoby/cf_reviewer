@@ -53,7 +53,6 @@ code { font-family: var(--mono); font-size: .92em; }
 }
 .brand { font-weight: 700; }
 .logo { color: var(--accent); font-family: var(--mono); margin-right: 6px; }
-.session { display: flex; align-items: center; gap: 12px; }
 
 .split {
   flex: 1; min-height: 0;
@@ -138,6 +137,5 @@ code { font-family: var(--mono); font-size: .92em; }
   body { height: auto; min-height: 100%; }
   .split { min-height: calc(100vh - 50px); }
   .topbar { padding: 10px 12px; }
-  .brand, .session button { white-space: nowrap; }
-  .session .muted { display: none; }
+  .brand, .topbar button { white-space: nowrap; }
 }

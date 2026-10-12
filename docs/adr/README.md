@@ -8,5 +8,7 @@
 | 2026-10-12 | ["Is this code?" gate before reviewing](2026-10-12-input-gate.md) |
 | 2026-10-12 | [Serve the frontend with Workers Static Assets](2026-10-12-frontend-static-assets.md) |
 | 2026-10-12 | [Continuous deployment with Cloudflare Workers Builds](2026-10-12-continuous-deploy-workers-builds.md) |
+| 2026-10-12 | [Auto-detect language, drop the `language` field](2026-10-12-auto-detect-language.md) |
+| 2026-10-12 | [Store only the final report](2026-10-12-store-only-final-report.md) |
 
 New ADRs use [TEMPLATE.md](TEMPLATE.md) and the naming `YYYY-MM-DD-short-title.md`.

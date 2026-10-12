@@ -70,19 +70,26 @@ Wrangler prints the `*.workers.dev` URL. Each review shows up in the dashboard u
 | GET    | `/api/sessions/:id/messages`          | —             | Chat history                                                      |
 | POST   | `/api/sessions/:id/messages`          | `{ content }` | Ask a follow-up question                                          |
 
-Limits: code ≤ 15,000 chars, chat messages ≤ 8,000 chars.
+Limits: code ≤ 15,000 chars, chat messages ≤ 8,000 chars, request body ≤ 128 KB. Errors are returned as `{ "error": "…" }` with 400 / 404 / 405 / 413 / 500.
 
 ## Project structure
 
 ```
 src/
   index.ts           Worker: routing + input validation
+  http.ts            Router, HttpError, JSON + size-limited body parsing
   review-session.ts  Durable Object: SQLite state + follow-up chat
   workflow.ts        Workflow: multi-step review
   ai.ts              Workers AI calls + numbered code blocks
   prompts.ts         System prompts
   types.ts           Shared types and Env bindings
-frontend/public/     index.html, app.js, markdown.js, styles.css
+frontend/public/
+  index.html         Page layout
+  app.js             UI and session state
+  api.js             One function per API endpoint
+  http-client.js     fetch wrapper + HttpError
+  markdown.js        Safe Markdown renderer
+  styles.css         Dark theme, responsive layout
 docs/                CONSTITUTION.md, adr/
 AGENTS.md            Entry point for AI coding agents
 ```

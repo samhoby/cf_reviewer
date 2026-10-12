@@ -20,24 +20,14 @@ export interface ReviewParams {
   sessionId: string;
   reviewId: string;
   code: string;
-  language: string | null;
 }
 
 export type ReviewStatus = "running" | "completed" | "failed" | "rejected";
-
-export interface ReviewFindings {
-  security: string;
-  logic: string;
-  report: string;
-}
 
 export interface Review {
   id: string;
   status: ReviewStatus;
   code: string;
-  language: string | null;
-  security: string | null;
-  logic: string | null;
   report: string | null;
   error: string | null;
   createdAt: number;

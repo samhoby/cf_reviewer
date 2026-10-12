@@ -17,8 +17,9 @@ Rules for every human or AI contributor to this repository. Read this before cha
 
 - Backend stays modular: HTTP router (`index.ts`) → Durable Object (`review-session.ts`) & Workflow (`workflow.ts`) → AI (`ai.ts`).
 - SQLite queries live strictly inside `ReviewSession`; HTTP handlers and Workflows only orchestrate.
-- Validate all inputs at the Worker edge (UUIDs, language allowlist, and character limits).
-- Frontend splits UI/session state (`app.js`), safe Markdown rendering (`markdown.js`), and styles (`styles.css`).
+- Validate all inputs at the Worker edge (UUIDs, JSON shape, body size, and character limits).
+- Frontend uses native ES modules (no build step) and splits UI/session state (`app.js`), API calls (`api.js`, one function per endpoint), the fetch wrapper and `HttpError` (`http-client.js`), safe Markdown rendering (`markdown.js`), and styles (`styles.css`).
+- Never call `fetch()` outside `http-client.js`; add new endpoints to `api.js`.
 - Data flow is one-way and observable via polling and explicit status updates.
 - Preserve core invariants: session isolation, idempotent Workflow steps with retries, atomic chat persistence, and HTML-escaped Markdown.
 

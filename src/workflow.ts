@@ -4,7 +4,12 @@ import {
   type WorkflowStep,
 } from "cloudflare:workers";
 import { numberedCodeBlock, runModel } from "./ai";
-import { COMBINE_PROMPT, IS_CODE_PROMPT, LOGIC_PROMPT, SECURITY_PROMPT } from "./prompts";
+import {
+  COMBINE_PROMPT,
+  IS_CODE_PROMPT,
+  LOGIC_PROMPT,
+  SECURITY_PROMPT,
+} from "./prompts";
 import type { Env, ReviewParams } from "./types";
 
 // Retry flaky LLM calls; each step result is persisted by Workflows.
@@ -15,11 +20,11 @@ const LLM_STEP = {
 
 export class ReviewWorkflow extends WorkflowEntrypoint<Env, ReviewParams> {
   async run(event: Readonly<WorkflowEvent<ReviewParams>>, step: WorkflowStep) {
-    const { sessionId, reviewId, code, language } = event.payload;
+    const { sessionId, reviewId, code } = event.payload;
     const session = this.env.REVIEW_SESSION.get(
       this.env.REVIEW_SESSION.idFromName(sessionId),
     );
-    const snippet = numberedCodeBlock(code, language);
+    const snippet = numberedCodeBlock(code);
     const ask = (system: string, user: string, maxTokens?: number) =>
       runModel(
         this.env.AI,
@@ -38,7 +43,10 @@ export class ReviewWorkflow extends WorkflowEntrypoint<Env, ReviewParams> {
       });
       if (!isCode) {
         await step.do("reject-input", async () => {
-          await session.rejectReview(reviewId, "This doesn't look like code. Paste a code snippet to review.");
+          await session.rejectReview(
+            reviewId,
+            "This doesn't look like code. Paste a code snippet to review.",
+          );
         });
         return { reviewId, status: "rejected" };
       }
@@ -60,7 +68,7 @@ export class ReviewWorkflow extends WorkflowEntrypoint<Env, ReviewParams> {
 
       // Step 3b: save to the session's SQLite DB (idempotent, safe to retry).
       await step.do("save-report", async () => {
-        await session.completeReview(reviewId, { security, logic, report });
+        await session.completeReview(reviewId, report);
       });
 
       return { reviewId, status: "completed" };

@@ -1,4 +1,4 @@
-export const MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+const MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
@@ -23,10 +23,11 @@ export async function runModel(
   return text;
 }
 
-export function numberedCodeBlock(code: string, language: string | null): string {
+/** Wraps code in a fenced block with "N | " line numbers so the model can cite lines. */
+export function numberedCodeBlock(code: string): string {
   const numbered = code
     .split("\n")
     .map((line, i) => `${String(i + 1).padStart(3, " ")} | ${line}`)
     .join("\n");
-  return "```" + (language ?? "") + "\n" + numbered + "\n```";
+  return "```\n" + numbered + "\n```";
 }
