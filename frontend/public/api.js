@@ -25,7 +25,7 @@ export const api = {
   getMessages: (sessionId) =>
     httpClient.get(`/sessions/${id(sessionId)}/messages`),
 
-  /** Sends a follow-up question and returns the AI reply. → `{ message }` */
+  /** Sends a question and returns the AI reply. → `{ message }` */
   sendMessage: (sessionId, content) =>
     httpClient.post(`/sessions/${id(sessionId)}/messages`, { content }),
 };

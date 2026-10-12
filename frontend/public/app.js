@@ -5,21 +5,43 @@ import { renderMarkdown } from "./markdown.js";
 const MAX_CODE = 15_000;
 const POLL_MS = 2_000;
 const POLL_TIMEOUT_MS = 5 * 60 * 1000;
-const STATUS_LABELS = { running: "Reviewing…", completed: "Done", failed: "Failed", rejected: "Not code" };
+const STATUS_LABELS = {
+  running: "Reviewing…",
+  completed: "Done",
+  failed: "Failed",
+  rejected: "Not code",
+};
 
 const $ = (id) => document.getElementById(id);
 const el = {
   newSessionBtn: $("newSessionBtn"),
-  code: $("code"), charCount: $("charCount"), reviewBtn: $("reviewBtn"),
-  status: $("status"), output: $("output"), report: $("report"), messages: $("messages"),
-  chatForm: $("chatForm"), chatInput: $("chatInput"), sendBtn: $("sendBtn"),
+  code: $("code"),
+  charCount: $("charCount"),
+  reviewBtn: $("reviewBtn"),
+  status: $("status"),
+  output: $("output"),
+  report: $("report"),
+  messages: $("messages"),
+  chatForm: $("chatForm"),
+  chatInput: $("chatInput"),
+  sendBtn: $("sendBtn"),
 };
 
 /** localStorage wrapper; storage can throw (private mode), so failures are ignored. */
 const store = {
-  get: (key) => { try { return localStorage.getItem(key); } catch { return null; } },
+  get: (key) => {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  },
   set: (key, value) => {
-    try { value == null ? localStorage.removeItem(key) : localStorage.setItem(key, value); } catch {}
+    try {
+      value == null
+        ? localStorage.removeItem(key)
+        : localStorage.setItem(key, value);
+    } catch {}
   },
 };
 
@@ -145,7 +167,7 @@ function resetReport() {
 
 // ---- Chat ----
 
-/** Sends a follow-up question; restores the input if the request fails. */
+/** Sends a question; restores the input if the request fails. */
 async function sendMessage(event) {
   event.preventDefault();
   const content = el.chatInput.value.trim();
@@ -227,7 +249,9 @@ function sleep(ms) {
 // ---- Events ----
 
 el.reviewBtn.addEventListener("click", startReview);
-el.newSessionBtn.addEventListener("click", () => newSession().catch((err) => setStatus("failed", err.message)));
+el.newSessionBtn.addEventListener("click", () =>
+  newSession().catch((err) => setStatus("failed", err.message)),
+);
 el.chatForm.addEventListener("submit", sendMessage);
 el.code.addEventListener("input", updateCharCount);
 el.chatInput.addEventListener("input", autoGrow);
@@ -240,7 +264,12 @@ el.code.addEventListener("keydown", (event) => {
   }
   if (event.key === "Tab" && !event.shiftKey) {
     event.preventDefault();
-    el.code.setRangeText("  ", el.code.selectionStart, el.code.selectionEnd, "end");
+    el.code.setRangeText(
+      "  ",
+      el.code.selectionStart,
+      el.code.selectionEnd,
+      "end",
+    );
     updateCharCount();
   }
 });

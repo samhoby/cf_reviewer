@@ -15,7 +15,7 @@ export { ReviewWorkflow } from "./workflow";
 
 /** Max code length; keeps code + report inside the model's context window. */
 const MAX_CODE_CHARS = 15_000;
-/** Max follow-up question length. */
+/** Max question length. */
 const MAX_MESSAGE_CHARS = 8_000;
 /** Max request body; headroom over the char limits for UTF-8 and JSON escaping. */
 const MAX_BODY_BYTES = 128 * 1024;
@@ -84,7 +84,7 @@ async function getMessages({ env, params }: Context): Promise<Response> {
   return json({ messages });
 }
 
-/** POST /api/sessions/:sessionId/messages — follow-up question → AI reply. */
+/** POST /api/sessions/:sessionId/messages — question → AI reply. */
 async function sendMessage({ req, env, params }: Context): Promise<Response> {
   const session = sessionStub(env, params.sessionId);
   const content = parseMessageInput(await readJsonBody(req, MAX_BODY_BYTES));
@@ -128,7 +128,7 @@ function parseReviewInput(body: unknown): string {
   return trimmed;
 }
 
-/** Validates `{ content }` for a follow-up question. */
+/** Validates `{ content }` for a question. */
 function parseMessageInput(body: unknown): string {
   const { content } = requireObject(body);
   const text = typeof content === "string" ? content.trim() : "";

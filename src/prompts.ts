@@ -22,7 +22,7 @@ Structure:
 Remove duplicates, keep severities, don't invent new issues. ${STYLE}`;
 
 export const CHAT_PROMPT = `You are a senior software engineer doing code review.
-Answer follow-up questions about the code and the review below.
+Answer questions about the code and the review below.
 If no code has been reviewed yet, review any code the user sends. ${STYLE}`;
 
 export const IS_CODE_PROMPT = `You classify text. Decide if it is source code in any language

@@ -1,6 +1,6 @@
 # AI Code Reviewer on Cloudflare
 
-Paste a code snippet and get a security, bug and performance review from Llama 3.3, then ask follow-up questions in a chat that remembers the review.
+Paste a code snippet and get a security, bug and performance review from Llama 3.3, then ask questions in a chat that remembers the review.
 
 Built for the Cloudflare AI-powered application assignment:
 
@@ -68,7 +68,7 @@ Wrangler prints the `*.workers.dev` URL. Each review shows up in the dashboard u
 | POST   | `/api/sessions/:id/reviews`           | `{ code }`    | Start a review → `202 { reviewId }`                               |
 | GET    | `/api/sessions/:id/reviews/:reviewId` | —             | Status (`running` / `completed` / `failed` / `rejected`) + report |
 | GET    | `/api/sessions/:id/messages`          | —             | Chat history                                                      |
-| POST   | `/api/sessions/:id/messages`          | `{ content }` | Ask a follow-up question                                          |
+| POST   | `/api/sessions/:id/messages`          | `{ content }` | Ask a question                                                    |
 
 Limits: code ≤ 15,000 chars, chat messages ≤ 8,000 chars, request body ≤ 128 KB. Errors are returned as `{ "error": "…" }` with 400 / 404 / 405 / 413 / 500.
 
