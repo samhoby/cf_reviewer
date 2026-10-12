@@ -25,6 +25,7 @@
   // Enable SQLite storage for the DO
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ReviewSession"] }],
 
+  // Frontend (vanilla HTML/CSS/JS) served from the same origin as /api/*
   "assets": {
     "directory": "./frontend/public",
   },

@@ -1,14 +1,12 @@
 {
-  "name": "cf_ai_app",
+  "name": "cf-ai-code-reviewer",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "typecheck": "tsc --noEmit",
-    "dev:ui": "cd frontend && wrangler pages dev --port 8788",
-    "deploy:ui": "cd frontend && wrangler pages deploy"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261006.1",
