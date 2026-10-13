@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "cf-ai-code-reviewer",
+  "name": "cf-reviewer",
   "main": "src/index.ts",
   "compatibility_date": "2025-10-01",
   "observability": { "enabled": true },

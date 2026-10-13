@@ -27,11 +27,11 @@ The build command acts as a gate: if `tsc --noEmit` fails, nothing is deployed.
 ## Consequences
 - Every push to `main` goes to production within minutes; build logs appear under the Worker's **Deployments** tab and on the GitHub commit status.
 - CI/CD configuration lives in the Cloudflare dashboard, not in the repo. This ADR is its record; update it if the settings change.
-- The Worker `name` in `wrangler.jsonc` (`cf-ai-code-reviewer`) must match the connected Worker, or the build fails.
+- The Worker `name` in `wrangler.jsonc` (`cf-reviewer`) must match the connected Worker, or the build fails.
 - Other branches and PRs are not built or checked.
 
 ## Migration plan
 1. Deploy once manually (`npm run deploy`) so the Worker exists.
-2. Dashboard → Workers & Pages → `cf-ai-code-reviewer` → Settings → Builds → Connect → GitHub → `samhoby/cf_reviewer`, then apply the settings above.
+2. Dashboard → Workers & Pages → `cf-reviewer` → Settings → Builds → Connect → GitHub → `samhoby/cf_reviewer`, then apply the settings above.
 3. Push a commit to `main` and confirm the build succeeds.
 4. If the GitHub repo is renamed, reconnect it in the same settings page.
